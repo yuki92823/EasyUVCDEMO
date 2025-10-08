@@ -1,0 +1,44 @@
+project:
+  name: EasyUVCDEMO
+  language: Kotlin
+  framework: Android
+  description: >
+    AndroidタブレットにUSBカメラを接続し、UVC経由で映像を取得・表示するデモアプリ。
+    今後、手洗い認証用モーション解析機能を追加予定。
+
+context:
+  - "app/src/main/java/**/*.kt"
+  - "app/src/main/res/**/*.xml"
+  - "**/build.gradle"
+  - "settings.gradle"
+  - "gradle/wrapper/gradle-wrapper.properties"
+
+tasks:
+  - name: Build Fix
+    goal: "Gradleと依存を整えて、:app:assembleDebug が正常に通るようにする"
+    acceptance:
+      - "プロジェクトがエラーなしでビルド成功する"
+      - "Android Studioで実機デプロイ可能"
+
+  - name: UVC Preview
+    goal: "USBカメラを接続して映像をプレビュー表示する"
+    acceptance:
+      - "USB接続時に権限リクエストが表示される"
+      - "許可後に映像がTextureViewへ表示される"
+
+  - name: Motion Analyzer
+    goal: "カメラ映像から手洗い動作を判定する（MediaPipeなし、モーション量ベース）"
+    acceptance:
+      - "一定の動きが続いたらOK、それ以外はNG表示"
+
+dependencies:
+  gradle:
+    - 'com.serenegiant:common:2.12.4'
+    - 'androidx.appcompat:appcompat:1.6.1'
+    - 'androidx.core:core:1.13.1'
+    - 'androidx.lifecycle:lifecycle-runtime-ktx:2.7.0'
+    - 'com.google.android.material:material:1.9.0'
+
+notes:
+  - "ビルドが通らない場合、CodexにGradle WrapperやAGPを最新に再設定するよう依頼可"
+  - "今後MediaPipe TFLite GPU対応を行う予定"
