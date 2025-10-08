@@ -1,0 +1,39 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace "jp.ubiq.easyuvcdemo"
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "jp.ubiq.easyuvcdemo"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' } // Serenegiant libuvccamera 用
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.11.0'
+
+    // ✅ Serenegiant libuvccamera 安定版（Jiangdongguo互換）
+    implementation 'com.github.saki4510t:libuvccamera:2.0.7'
+}
